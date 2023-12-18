@@ -1,5 +1,5 @@
 import { Component, OnInit, Injectable } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
 import { User, RegisterUserDAO, LoginService } from '../services/serguridad.service';
 import { Router } from '@angular/router';
 import { LoggerService } from '../../../indra-core';
@@ -11,13 +11,13 @@ import { NotificationService, NotificationType } from '../../common-app';
   styleUrls: ['./register-user.component.css']
 })
 export class RegisterUserComponent implements OnInit {
-  public miForm: FormGroup;
+  public miForm: UntypedFormGroup;
   private model: User = new User();
 
   constructor(private dao: RegisterUserDAO, private notify: NotificationService,
     private out: LoggerService, private router: Router, private login: LoginService) { }
 
-  passwordMatchValidator(g: FormGroup) {
+  passwordMatchValidator(g: UntypedFormGroup) {
     return g.get('passwordValue').value === g.get('passwordConfirm').value ? null : {'mismatch': true};
  }
 
@@ -26,24 +26,24 @@ export class RegisterUserComponent implements OnInit {
     // this.model.roles.forEach(r => fa.push(
     //   new FormGroup({ role: new FormControl(r.role , Validators.required) })
     // ));
-    this.miForm = new FormGroup({
-      idUsuario: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20), Validators.email]),
-      nombre: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
-      password: new FormGroup({
-          passwordValue: new FormControl('', [Validators.required, Validators.minLength(2)]),
-          passwordConfirm: new FormControl('', Validators.minLength(2)),
+    this.miForm = new UntypedFormGroup({
+      idUsuario: new UntypedFormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20), Validators.email]),
+      nombre: new UntypedFormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
+      password: new UntypedFormGroup({
+          passwordValue: new UntypedFormControl('', [Validators.required, Validators.minLength(2)]),
+          passwordConfirm: new UntypedFormControl('', Validators.minLength(2)),
       }, this.passwordMatchValidator),
-      roles: new FormArray([])
+      roles: new UntypedFormArray([])
     });
     for (const name in this.miForm.controls) {
-      if (this.miForm.controls[name] instanceof FormControl) {
+      if (this.miForm.controls[name] instanceof UntypedFormControl) {
         this.miForm.controls[name].valueChanges.subscribe(
-          data => { this.formatErrorMessage(this.miForm.controls[name] as FormControl); }
+          data => { this.formatErrorMessage(this.miForm.controls[name] as UntypedFormControl); }
         );
       }
     }
   }
-  private formatErrorMessage(cntr: FormControl) {
+  private formatErrorMessage(cntr: UntypedFormControl) {
     if (cntr.invalid) {
       if (cntr.hasError('required')) {
         cntr.setErrors({'customMsg': 'Es obligatorio.'});
@@ -59,12 +59,12 @@ export class RegisterUserComponent implements OnInit {
     }
   }
   addRole() {
-    (this.miForm.get('roles') as FormArray).push(
-      new FormGroup({ role: new FormControl('Usuarios' , Validators.required) })
+    (this.miForm.get('roles') as UntypedFormArray).push(
+      new UntypedFormGroup({ role: new UntypedFormControl('Usuarios' , Validators.required) })
     );
   }
   deleteRole(ind: number) {
-    (this.miForm.get('roles') as FormArray).removeAt(ind);
+    (this.miForm.get('roles') as UntypedFormArray).removeAt(ind);
   }
   send() {
     const data = this.miForm.value;
