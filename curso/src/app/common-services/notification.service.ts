@@ -21,7 +21,7 @@ export class NotificationService implements OnDestroy {
 
   constructor(private out: LoggerService) { }
 
-  public get Listado(): Array<Notification> { return Object.assign([], this.listado); }
+  public get Listado(): Array<Notification> { return [ ...this.listado ]; }
   public get HayNotificaciones(): boolean { return this.listado.length > 0; }
   public get Notificacion() { return this.notificacion$; }
 
@@ -34,6 +34,7 @@ export class NotificationService implements OnDestroy {
       (this.listado[this.listado.length - 1].Id + 1) : 1;
     const n = new Notification(id, msg, type);
     this.listado.push(n);
+    // this.listado = [...this.listado, n]
     this.notificacion$.next(n);
     // Redundancia: Los errores también se muestran en consola
     if (type === NotificationType.error && !environment.production) {
