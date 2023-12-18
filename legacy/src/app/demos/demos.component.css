@@ -1,11 +1,9 @@
 .importante {
-  font-size: 1.2em;
+  font-size: 1.5em;
 }
-
 .urgente {
   font-style: italic;
 }
-
-.casinvisible {
-  opacity: 0.2;
+.novisible {
+  opacity: 0.2!important;
 }

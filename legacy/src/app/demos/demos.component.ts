@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NotificationService } from '../common-app/notification.service';
-import { LoggerService } from 'src/mp-core';
+import { NotificationService } from '../common-app';
+import { LoggerService } from 'src/indra-core';
 
 @Component({
   selector: 'app-demos',
@@ -8,30 +8,36 @@ import { LoggerService } from 'src/mp-core';
   styleUrls: ['./demos.component.css']
 })
 export class DemosComponent implements OnInit {
-  public Nombre: string = 'mundo';
+  public nombre: string = 'mundo';
   public listado = [
     { id: 1, nombre: 'Madrid' },
-    { id: 2, nombre: 'barcelona' },
-    { id: 3, nombre: 'BILBAO' },
-    { id: 4, nombre: 'a Coruña' },
+    { id: 2, nombre: 'BARCELONA' },
+    { id: 3, nombre: 'sevilla' },
+    { id: 4, nombre: 'a coruña' },
   ];
-  public idProvincia = 2;
+  idProvincia = 2;
+  fontSize = 24;
 
-  public resultado: string = null;
-  public visible = true;
-  public estetica = { importante: true, error: false, urgente: true };
+  resultado = '';
+  visible = true;
+  estetica = { importante: true, error: false, urgente: true };
 
   constructor(public notify: NotificationService, private out: LoggerService) { }
 
-  saluda() {
-    this.resultado = `Hola ${this.Nombre}`;
+  ngOnInit() {
   }
-  despide() {
-    this.resultado = `Adios ${this.Nombre}`;
+
+  saluda() {
+    this.resultado = `Hola ${this.nombre}`;
+  }
+  depide() {
+    this.resultado = `Adios ${this.nombre}`;
   }
   di(algo: string) {
     this.resultado = `Dice ${algo}`;
   }
+
+  calcula(a: number, b: number): number { return a + b; }
 
   cambia() {
     this.visible = !this.visible;
@@ -39,21 +45,14 @@ export class DemosComponent implements OnInit {
     this.estetica.error = !this.estetica.error;
   }
 
-  calcula(a: number, b: number): number {
-    return a + b;
-  }
-
-  add(provincia: string): void {
-    if (!provincia || provincia === '') {
-      this.out.error('Falta la provincia');
+  public add(nombre: string) {
+    if (!nombre) {
+      this.out.error('Falta el mensaje de la notificación.');
       return;
     }
-    const id = this.listado.length === 0 ? 1 : (this.listado[this.listado.length - 1].id + 1);
-    this.listado.push({ id, nombre: provincia });
+    const id = this.listado.length ? this.listado[this.listado.length - 1].id + 1 : 1;
+    this.listado.push({ id, nombre });
     this.idProvincia = id;
-  }
-
-  ngOnInit() {
   }
 
   // tslint:disable:member-ordering
@@ -63,13 +62,13 @@ export class DemosComponent implements OnInit {
     { codigo: 'en-US', region: 'USA' }
   ];
   idioma = this.idiomas[0].codigo;
-  calculos: any[] = [];
+  resultados: any[] = [];
   valCalculadora = 666;
   // tslint:enable:member-ordering
 
   ponResultado(origen: string, valor: any) {
-    this.calculos.push({
-      pos: this.calculos.length + 1,
+    this.resultados.push({
+      pos: this.resultados.length + 1,
       origen,
       valor
     });

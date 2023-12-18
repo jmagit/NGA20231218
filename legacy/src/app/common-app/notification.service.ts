@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
-import { LoggerService } from 'src/mp-core';
+import { LoggerService } from 'src/indra-core';
 
-export enum NotificationType { error, warn, info, log }
+export enum NotificationType {
+  error = 'error',
+  warn = 'warn',
+  info = 'info',
+  log = 'log'
+ }
 
 export class Notification {
-  constructor(private id: number, private msg: string, private type: NotificationType) {}
-  public get Id() { return this.id; }
-  public set Id(valor: number) { this.id = valor; }
-  public get Message() { return this.msg; }
-  public set Message(valor: string) { this.msg = valor; }
-  public get Type() { return this.type; }
-  public set Type(valor: NotificationType) { this.type = valor; }
+  constructor(private id: number, private message: string, private type: NotificationType) {}
+
+  public get Id(): number { return this.id; }
+  public get Message(): string { return this.message; }
+  public get Type(): NotificationType { return this.type; }
 }
 
 @Injectable({
@@ -24,19 +27,19 @@ export class NotificationService {
   public get Listado() { return Object.assign([], this.listado); }
   public get HayNotificaciones(): boolean { return this.listado.length > 0; }
 
-  public add(msg: string, type = NotificationType.error) {
+  public add(msg: string, tipo: NotificationType = NotificationType.error ) {
     if (!msg) {
-      this.out.error('Falta el mensaje');
+      this.out.error('Falta el mensaje de la notificación.');
       return;
     }
-    const id = this.HayNotificaciones ? this.listado[this.listado.length - 1].Id + 1 : 1;
-    this.listado.push(new Notification(id, msg, type));
-    if (type === NotificationType.error) {
-      this.out.error(`NOTIFICACION: ${msg}`);
+    const id = this.HayNotificaciones ? this.listado[ this.listado.length - 1].Id + 1 : 1;
+    this.listado.push(new Notification(id, msg, tipo));
+    if (tipo === NotificationType.error) {
+      this.out.error(msg);
     }
   }
-  public delete(index: number) {
-    if (0 <= index && index < this.listado.length) {
+  public remove(index: number) {
+    if ( 0 <= index && index < this.listado.length) {
       this.listado.splice(index, 1);
     } else {
       this.out.error('Index out of range');

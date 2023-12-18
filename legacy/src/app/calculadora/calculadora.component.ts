@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { LoggerService } from 'src/mp-core';
+import { LoggerService } from '../../indra-core';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -20,7 +20,6 @@ export class CalculadoraComponent implements OnInit, OnChanges {
   @Input() private init: string;
   @Output() updated: EventEmitter<any> = new EventEmitter();
   private separadorDecimal: string = '.';
-  @Input() public classCSS: string = '';
 
   constructor(private out: LoggerService) { }
 
@@ -135,13 +134,13 @@ export class CalculadoraComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    if (this.init) {
-      this.ponOperando(this.init);
-    }
-  }
-  ngOnChanges(changes: SimpleChanges): void {
     // if (this.init) {
     //   this.ponOperando(this.init);
     // }
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.init) {
+      this.ponOperando(this.init);
+    }
   }
 }

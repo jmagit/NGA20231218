@@ -4,51 +4,45 @@ import localeEsExtra from '@angular/common/locales/extra/es';
 
 registerLocaleData(localeEs, 'es', localeEsExtra);
 
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MainModule } from './main/main.module';
-import { CommonAppModule } from './common-app/common-app.module';
-import { MpCoreModule, LoggerService, ERROR_LEVEL } from 'src/mp-core';
+import { MainModule } from './main';
+import { CommonAppModule } from './common-app';
+import { IndraCoreModule, LoggerService, ERROR_LEVEL } from 'src/indra-core';
 import { environment } from 'src/environments/environment';
-import { HomeComponent } from './home/home.component';
 import { DemosComponent } from './demos/demos.component';
-import { NotificationComponent } from './notification/notification.component';
 import { DinamicoComponent } from './dinamico/dinamico.component';
 import { CalculadoraComponent } from './calculadora/calculadora.component';
-import { PersonasFormComponent } from './personas-form/personas-form.component';
+import { PERSONAS_COMPONENTS } from './personas/componentes.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AjaxWaitInterceptor, AjaxWaitComponent } from './ajax-wait';
-import { PersonasModule } from './personas';
-import { MenuComponent } from './menu/menu.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PersonasViewModelService, PersonasDAOViewModelService } from './personas/servicios.service';
+import { AjaxWaitInterceptor } from './main/ajax-wait';
+import { SecurityModule, AuthInterceptor } from './security';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     DemosComponent,
-    NotificationComponent,
     DinamicoComponent,
     CalculadoraComponent,
-    PersonasFormComponent,
-    AjaxWaitComponent,
-    MenuComponent,
-    PageNotFoundComponent,
+    PERSONAS_COMPONENTS
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule,
-    MainModule, CommonAppModule, MpCoreModule,
-    PersonasModule,
+    MainModule, CommonAppModule, SecurityModule, IndraCoreModule,
     AppRoutingModule
   ],
   providers: [
     LoggerService,
     { provide: ERROR_LEVEL, useValue: environment.ERROR_LEVEL },
+    { provide: LOCALE_ID, useValue: 'es' },
+    { provide: PersonasViewModelService, useClass: PersonasDAOViewModelService },
     { provide: HTTP_INTERCEPTORS, useClass: AjaxWaitInterceptor, multi: true, },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, },
   ],
   bootstrap: [AppComponent]
 })

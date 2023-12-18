@@ -1,20 +1,20 @@
-import { NgModule, SkipSelf, Optional } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HomeComponent } from './home/home.component';
+import { NotificationComponent } from './notification/notification.component';
+import { AjaxWaitComponent } from './ajax-wait';
+import { MenuComponent } from './menu/menu.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { Routes, RouterModule } from '@angular/router';
+import { SecurityModule } from '../security';
 
-
+const routes: Routes = [];
 
 @NgModule({
-  declarations: [],
+  declarations: [HomeComponent, NotificationComponent, AjaxWaitComponent, MenuComponent, PageNotFoundComponent],
+  exports: [HomeComponent, NotificationComponent, AjaxWaitComponent, MenuComponent, PageNotFoundComponent],
   imports: [
-    CommonModule
+    CommonModule, RouterModule.forChild(routes), SecurityModule,
   ]
 })
-export class MainModule {
-  constructor( @Optional() @SkipSelf() parentModule: MainModule) {
-    if (parentModule) {
-      const msg = `MainModule) has already been loaded.
-        Import MainModule) once, only, in the root AppModule.`;
-      throw new Error(msg);
-    }
-  }
- }
+export class MainModule { }
