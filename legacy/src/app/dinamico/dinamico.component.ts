@@ -5,10 +5,9 @@ import { CalculadoraComponent } from '../calculadora/calculadora.component';
 import { PersonasComponent } from '../personas/componentes.component';
 
 @Component({
-  selector: 'app-dinamico',
-  templateUrl: './dinamico.component.html',
-  styleUrls: ['./dinamico.component.css'],
-  entryComponents: [ HomeComponent, DemosComponent, CalculadoraComponent, PersonasComponent, ]
+    selector: 'app-dinamico',
+    templateUrl: './dinamico.component.html',
+    styleUrls: ['./dinamico.component.css']
 })
 export class DinamicoComponent implements OnInit {
   menu = [
