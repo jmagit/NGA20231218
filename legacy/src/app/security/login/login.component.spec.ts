@@ -8,9 +8,9 @@ xdescribe('LoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginComponent ],
-      schemas:      [ NO_ERRORS_SCHEMA ]
-    })
+    imports: [LoginComponent],
+    schemas: [NO_ERRORS_SCHEMA]
+})
     .compileComponents();
   }));
 

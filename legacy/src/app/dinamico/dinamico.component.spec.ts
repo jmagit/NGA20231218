@@ -8,8 +8,8 @@ xdescribe('DinamicoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DinamicoComponent ]
-    })
+    imports: [DinamicoComponent]
+})
     .compileComponents();
   }));
 

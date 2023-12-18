@@ -1,14 +1,17 @@
 import { Component, OnInit, Injectable } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { User, RegisterUserDAO, LoginService } from '../services/serguridad.service';
 import { Router } from '@angular/router';
 import { LoggerService } from '../../../indra-core';
 import { NotificationService, NotificationType } from '../../common-app';
+import { NgFor, JsonPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-register-user',
-  templateUrl: './register-user.component.html',
-  styleUrls: ['./register-user.component.css']
+    selector: 'app-register-user',
+    templateUrl: './register-user.component.html',
+    styleUrls: ['./register-user.component.css'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, NgFor, JsonPipe]
 })
 export class RegisterUserComponent implements OnInit {
   public miForm: UntypedFormGroup;

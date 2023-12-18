@@ -10,15 +10,13 @@ import { NotificationService } from '../common-app/notification.service';
 
 
 @NgModule({
-  declarations: [
-    PERSONAS_COMPONENTES
-  ],
-  exports: [
-    PersonasComponent, //PERSONAS_COMPONENTES 
-  ],
-  providers: [NotificationService],
-  imports: [
-    CommonModule, FormsModule, RouterModule.forChild([]), MpCoreModule, CommonAppModule,
-  ]
+    exports: [
+        PersonasComponent, //PERSONAS_COMPONENTES 
+    ],
+    providers: [NotificationService],
+    imports: [
+        CommonModule, FormsModule, RouterModule.forChild([]), MpCoreModule, CommonAppModule,
+        PERSONAS_COMPONENTES,
+    ]
 })
 export class PersonasModule { }

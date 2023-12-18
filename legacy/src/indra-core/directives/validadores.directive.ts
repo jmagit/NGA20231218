@@ -2,8 +2,9 @@ import { Directive, forwardRef, OnChanges, Input, SimpleChanges } from '@angular
 import { Validator, AbstractControl, NG_VALIDATORS, ValidatorFn, ValidationErrors, Validators } from '@angular/forms';
 
 @Directive({
-  selector: '[upperCase]',
-  providers: [{provide: NG_VALIDATORS, useExisting: UpperCaseValidatorDirective, multi: true}]
+    selector: '[upperCase]',
+    providers: [{ provide: NG_VALIDATORS, useExisting: UpperCaseValidatorDirective, multi: true }],
+    standalone: true
 })
 export class UpperCaseValidatorDirective implements Validator {
   validate(control: AbstractControl): {[key: string]: any} {
@@ -23,9 +24,10 @@ export const MIN_VALIDATOR: any = {
 };
 
 @Directive({
-  selector: '[min][formControlName],[min][formControl],[min][ngModel]',
-  providers: [MIN_VALIDATOR],
-  host: {'[attr.min]': 'min ? min : null'}
+    selector: '[min][formControlName],[min][formControl],[min][ngModel]',
+    providers: [MIN_VALIDATOR],
+    host: { '[attr.min]': 'min ? min : null' },
+    standalone: true
 })
 export class MinValidator implements Validator,
     OnChanges {
@@ -57,9 +59,10 @@ export const MAX_VALIDATOR: any = {
 };
 
 @Directive({
-  selector: '[max][formControlName],[max][formControl],[max][ngModel]',
-  providers: [MAX_VALIDATOR],
-  host: {'[attr.max]': 'max ? max : null'}
+    selector: '[max][formControlName],[max][formControl],[max][ngModel]',
+    providers: [MAX_VALIDATOR],
+    host: { '[attr.max]': 'max ? max : null' },
+    standalone: true
 })
 export class MaxValidator implements Validator,
     OnChanges {

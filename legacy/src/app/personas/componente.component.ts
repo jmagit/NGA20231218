@@ -1,10 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, forwardRef } from '@angular/core';
 import { PersonasViewModelService } from './servicios.service';
+import { MinValidator, MaxValidator } from '../../mp-core/directives/validadores.directive';
+import { FormsModule } from '@angular/forms';
+import { NgSwitch, NgSwitchCase, NgSwitchDefault, NgFor, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-personas',
-  templateUrl: './tmpl-anfitrion.component.html',
-  styleUrls: ['./componente.component.css']
+    selector: 'app-personas',
+    templateUrl: './tmpl-anfitrion.component.html',
+    styleUrls: ['./componente.component.css'],
+    standalone: true,
+    imports: [NgSwitch, NgSwitchCase, forwardRef(() => PersonasAddComponent), forwardRef(() => PersonasEditComponent), forwardRef(() => PersonasViewComponent), NgSwitchDefault, forwardRef(() => PersonasListComponent)]
 })
 export class PersonasComponent implements OnInit {
   constructor(protected vm: PersonasViewModelService) { }
@@ -14,9 +19,11 @@ export class PersonasComponent implements OnInit {
   }
 }
 @Component({
-  selector: 'app-personas-list',
-  templateUrl: './tmpl-list.component.html',
-  styleUrls: ['./componente.component.css']
+    selector: 'app-personas-list',
+    templateUrl: './tmpl-list.component.html',
+    styleUrls: ['./componente.component.css'],
+    standalone: true,
+    imports: [NgFor]
 })
 export class PersonasListComponent implements OnInit {
   constructor(protected vm: PersonasViewModelService) { }
@@ -24,9 +31,11 @@ export class PersonasListComponent implements OnInit {
   ngOnInit() { }
 }
 @Component({
-  selector: 'app-personas-add',
-  templateUrl: './tmpl-form.component.html',
-  styleUrls: ['./componente.component.css']
+    selector: 'app-personas-add',
+    templateUrl: './tmpl-form.component.html',
+    styleUrls: ['./componente.component.css'],
+    standalone: true,
+    imports: [FormsModule, NgIf, MinValidator, MaxValidator]
 })
 export class PersonasAddComponent implements OnInit {
   constructor(protected vm: PersonasViewModelService) { }
@@ -34,9 +43,11 @@ export class PersonasAddComponent implements OnInit {
   ngOnInit() { }
 }
 @Component({
-  selector: 'app-personas-edit',
-  templateUrl: './tmpl-form.component.html',
-  styleUrls: ['./componente.component.css']
+    selector: 'app-personas-edit',
+    templateUrl: './tmpl-form.component.html',
+    styleUrls: ['./componente.component.css'],
+    standalone: true,
+    imports: [FormsModule, NgIf, MinValidator, MaxValidator]
 })
 export class PersonasEditComponent implements OnInit, OnDestroy {
   constructor(protected vm: PersonasViewModelService) { }
@@ -45,9 +56,10 @@ export class PersonasEditComponent implements OnInit, OnDestroy {
   ngOnDestroy() { }
 }
 @Component({
-  selector: 'app-personas-view',
-  templateUrl: './tmpl-view.component.html',
-  styleUrls: ['./componente.component.css']
+    selector: 'app-personas-view',
+    templateUrl: './tmpl-view.component.html',
+    styleUrls: ['./componente.component.css'],
+    standalone: true
 })
 export class PersonasViewComponent implements OnInit, OnDestroy {
   constructor(protected vm: PersonasViewModelService) { }

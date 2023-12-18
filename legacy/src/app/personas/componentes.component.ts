@@ -1,11 +1,16 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, forwardRef } from '@angular/core';
 import { PersonasViewModelService } from './servicios.service';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { ActivatedRoute, Router, ParamMap, RouterLink } from '@angular/router';
+import { UpperCaseValidatorDirective, MinValidator, MaxValidator } from '../../indra-core/directives/validadores.directive';
+import { FormsModule } from '@angular/forms';
+import { NgSwitch, NgSwitchCase, NgSwitchDefault, NgFor, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-personas',
-  templateUrl: './template.component.html',
-  styleUrls: ['./estilos.component.css']
+    selector: 'app-personas',
+    templateUrl: './template.component.html',
+    styleUrls: ['./estilos.component.css'],
+    standalone: true,
+    imports: [NgSwitch, NgSwitchCase, forwardRef(() => PersonasAddComponent), forwardRef(() => PersonasEditComponent), forwardRef(() => PersonasViewComponent), NgSwitchDefault, forwardRef(() => PersonasListComponent)]
 })
 export class PersonasComponent implements OnInit {
   constructor(private vm: PersonasViewModelService) { }
@@ -16,9 +21,11 @@ export class PersonasComponent implements OnInit {
 }
 
 @Component({
-  selector: 'app-personas-list',
-  templateUrl: './template-list.component.html',
-  styleUrls: ['./estilos.component.css']
+    selector: 'app-personas-list',
+    templateUrl: './template-list.component.html',
+    styleUrls: ['./estilos.component.css'],
+    standalone: true,
+    imports: [RouterLink, NgFor]
 })
 export class PersonasListComponent implements OnInit {
   constructor(private vm: PersonasViewModelService) { }
@@ -29,9 +36,11 @@ export class PersonasListComponent implements OnInit {
 }
 
 @Component({
-  selector: 'app-personas-add',
-  templateUrl: './template-form.component.html',
-  styleUrls: ['./estilos.component.css']
+    selector: 'app-personas-add',
+    templateUrl: './template-form.component.html',
+    styleUrls: ['./estilos.component.css'],
+    standalone: true,
+    imports: [FormsModule, NgIf, UpperCaseValidatorDirective, MinValidator, MaxValidator]
 })
 export class PersonasAddComponent implements OnInit {
   constructor(private vm: PersonasViewModelService) { }
@@ -42,9 +51,11 @@ export class PersonasAddComponent implements OnInit {
 }
 
 @Component({
-  selector: 'app-personas-edit',
-  templateUrl: './template-form.component.html',
-  styleUrls: ['./estilos.component.css']
+    selector: 'app-personas-edit',
+    templateUrl: './template-form.component.html',
+    styleUrls: ['./estilos.component.css'],
+    standalone: true,
+    imports: [FormsModule, NgIf, UpperCaseValidatorDirective, MinValidator, MaxValidator]
 })
 export class PersonasEditComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private router: Router,
@@ -66,9 +77,10 @@ export class PersonasEditComponent implements OnInit, OnDestroy {
  }
 
 @Component({
-  selector: 'app-personas-view',
-  templateUrl: './template-view.component.html',
-  styleUrls: ['./estilos.component.css']
+    selector: 'app-personas-view',
+    templateUrl: './template-view.component.html',
+    styleUrls: ['./estilos.component.css'],
+    standalone: true
 })
 export class PersonasViewComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private router: Router,

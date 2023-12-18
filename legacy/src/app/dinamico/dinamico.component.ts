@@ -3,11 +3,15 @@ import { HomeComponent } from '../main/home/home.component';
 import { DemosComponent } from '../demos/demos.component';
 import { CalculadoraComponent } from '../calculadora/calculadora.component';
 import { PersonasComponent } from '../personas/componentes.component';
+import { NotificationComponent } from '../main/notification/notification.component';
+import { NgFor, NgComponentOutlet } from '@angular/common';
 
 @Component({
     selector: 'app-dinamico',
     templateUrl: './dinamico.component.html',
-    styleUrls: ['./dinamico.component.css']
+    styleUrls: ['./dinamico.component.css'],
+    standalone: true,
+    imports: [NgFor, NotificationComponent, NgComponentOutlet]
 })
 export class DinamicoComponent implements OnInit {
   menu = [

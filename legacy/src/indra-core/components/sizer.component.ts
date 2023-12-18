@@ -1,13 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 @Component({
-// tslint:disable-next-line: component-selector
-  selector: 'indra-sizer',
-  template: `
+    // tslint:disable-next-line: component-selector
+    selector: 'indra-sizer',
+    template: `
   <div>
     <button (click)="dec()">-</button>
     <button (click)="inc()">+</button>
     <label [style.font-size.px]="size">FontSize: {{size}}px</label>
-  </div>`
+  </div>`,
+    standalone: true
 })
 export class SizerComponent {
   @Input()  size: number | string;

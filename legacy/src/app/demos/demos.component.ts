@@ -1,11 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationService } from '../common-app';
 import { LoggerService } from 'src/indra-core';
+import { LocalDecimalPipe } from '../../indra-core/pipes/numericos.pipe';
+import { ElipsisPipe } from '../../indra-core/pipes/cadenas.pipe';
+import { SizerComponent } from '../../indra-core/components/sizer.component';
+import { FormsModule } from '@angular/forms';
+import { NgFor, NgIf, NgClass, UpperCasePipe, JsonPipe, SlicePipe, TitleCasePipe, CurrencyPipe } from '@angular/common';
+import { CalculadoraComponent } from '../calculadora/calculadora.component';
 
 @Component({
-  selector: 'app-demos',
-  templateUrl: './demos.component.html',
-  styleUrls: ['./demos.component.css']
+    selector: 'app-demos',
+    templateUrl: './demos.component.html',
+    styleUrls: ['./demos.component.css'],
+    standalone: true,
+    imports: [CalculadoraComponent, NgFor, FormsModule, NgIf, NgClass, SizerComponent, UpperCasePipe, JsonPipe, SlicePipe, TitleCasePipe, CurrencyPipe, ElipsisPipe, LocalDecimalPipe]
 })
 export class DemosComponent implements OnInit {
   public nombre: string = 'mundo';

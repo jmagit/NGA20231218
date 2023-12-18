@@ -1,11 +1,15 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { LoggerService } from '../../indra-core';
+import { ToComaDecimalPipe } from '../../indra-core/pipes/numericos.pipe';
+import { NgIf, SlicePipe } from '@angular/common';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'calculadora',
-  templateUrl: './calculadora.component.html',
-  styleUrls: ['./calculadora.component.css']
+    // tslint:disable-next-line:component-selector
+    selector: 'calculadora',
+    templateUrl: './calculadora.component.html',
+    styleUrls: ['./calculadora.component.css'],
+    standalone: true,
+    imports: [NgIf, SlicePipe, ToComaDecimalPipe]
 })
 export class CalculadoraComponent implements OnInit, OnChanges {
   public readonly Math = Math;

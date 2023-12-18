@@ -8,8 +8,8 @@ xdescribe('NotificationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NotificationComponent ]
-    })
+    imports: [NotificationComponent]
+})
     .compileComponents();
   }));
 

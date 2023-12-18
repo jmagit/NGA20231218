@@ -24,26 +24,24 @@ import { AjaxWaitInterceptor } from './main/ajax-wait';
 import { SecurityModule, AuthInterceptor } from './security';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DemosComponent,
-    DinamicoComponent,
-    CalculadoraComponent,
-    PERSONAS_COMPONENTS
-  ],
-  imports: [
-    BrowserModule, FormsModule, HttpClientModule,
-    MainModule, CommonAppModule, SecurityModule, IndraCoreModule,
-    AppRoutingModule
-  ],
-  providers: [
-    LoggerService,
-    { provide: ERROR_LEVEL, useValue: environment.ERROR_LEVEL },
-    { provide: LOCALE_ID, useValue: 'es' },
-    { provide: PersonasViewModelService, useClass: PersonasDAOViewModelService },
-    { provide: HTTP_INTERCEPTORS, useClass: AjaxWaitInterceptor, multi: true, },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, },
-  ],
-  bootstrap: [AppComponent]
+    declarations: [AppComponent],
+    imports: [
+        BrowserModule, FormsModule, HttpClientModule,
+        MainModule, CommonAppModule, SecurityModule, IndraCoreModule,
+        AppRoutingModule,
+        DemosComponent,
+        DinamicoComponent,
+        CalculadoraComponent,
+        PERSONAS_COMPONENTS
+    ],
+    providers: [
+        LoggerService,
+        { provide: ERROR_LEVEL, useValue: environment.ERROR_LEVEL },
+        { provide: LOCALE_ID, useValue: 'es' },
+        { provide: PersonasViewModelService, useClass: PersonasDAOViewModelService },
+        { provide: HTTP_INTERCEPTORS, useClass: AjaxWaitInterceptor, multi: true, },
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, },
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

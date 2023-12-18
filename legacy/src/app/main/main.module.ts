@@ -11,10 +11,10 @@ import { SecurityModule } from '../security';
 const routes: Routes = [];
 
 @NgModule({
-  declarations: [HomeComponent, NotificationComponent, AjaxWaitComponent, MenuComponent, PageNotFoundComponent],
-  exports: [HomeComponent, NotificationComponent, AjaxWaitComponent, MenuComponent, PageNotFoundComponent],
-  imports: [
-    CommonModule, RouterModule.forChild(routes), SecurityModule,
-  ]
+    exports: [HomeComponent, NotificationComponent, AjaxWaitComponent, MenuComponent, PageNotFoundComponent],
+    imports: [
+        CommonModule, RouterModule.forChild(routes), SecurityModule,
+        HomeComponent, NotificationComponent, AjaxWaitComponent, MenuComponent, PageNotFoundComponent,
+    ]
 })
 export class MainModule { }

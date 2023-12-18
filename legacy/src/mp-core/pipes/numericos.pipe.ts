@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 
 @Pipe({
-  name: 'toComaDecimal'
+    name: 'toComaDecimal',
+    standalone: true
 })
 export class ToComaDecimalPipe implements PipeTransform {
   transform(value: any, args?: any): any {
@@ -17,7 +18,8 @@ export class ToComaDecimalPipe implements PipeTransform {
 }
 
 @Pipe({
-  name: 'localnumber'
+    name: 'localnumber',
+    standalone: true
 })
 export class LocalDecimalPipe implements PipeTransform {
   transform(value: any, locale: string = 'es ', digits: string = '1.0-14'): any {

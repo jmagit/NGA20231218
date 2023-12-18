@@ -7,14 +7,12 @@ import { MIS_VALIDADORES } from './directives/validadores.directive';
 
 
 @NgModule({
-  declarations: [
-    PIPES_CADENAS, PIPES_NUMERICOS, MIS_VALIDADORES,
-  ],
-  exports: [
-    PIPES_CADENAS, PIPES_NUMERICOS, MIS_VALIDADORES,
-  ],
-  imports: [
-    CommonModule
-  ]
+    exports: [
+        PIPES_CADENAS, PIPES_NUMERICOS, MIS_VALIDADORES,
+    ],
+    imports: [
+        CommonModule,
+        PIPES_CADENAS, PIPES_NUMERICOS, MIS_VALIDADORES
+    ]
 })
 export class MpCoreModule { }

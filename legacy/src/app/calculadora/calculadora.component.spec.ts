@@ -8,8 +8,8 @@ xdescribe('CalculadoraComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CalculadoraComponent ]
-    })
+    imports: [CalculadoraComponent]
+})
     .compileComponents();
   }));
 
