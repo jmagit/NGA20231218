@@ -4,7 +4,7 @@ import { NotificationComponent } from "../../main";
 import { Unsubscribable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ElipsisPipe, CapitalizePipe, SizerComponent } from '@my/core';
+import { ElipsisPipe, CapitalizePipe, SizerComponent, ExecPipe } from '@my/core';
 import { CardComponent } from 'src/app/common-component';
 import { CalculadoraComponent } from '../calculadora/calculadora.component';
 
@@ -13,7 +13,7 @@ import { CalculadoraComponent } from '../calculadora/calculadora.component';
     standalone: true,
     templateUrl: './demos.component.html',
     styleUrl: './demos.component.css',
-    imports: [CommonModule, FormsModule, ElipsisPipe, CapitalizePipe, SizerComponent, CalculadoraComponent, CardComponent, NotificationComponent, ],
+    imports: [CommonModule, FormsModule, ElipsisPipe, CapitalizePipe, SizerComponent, CalculadoraComponent, CardComponent, NotificationComponent, ExecPipe ],
     // providers: [ NotificationService ],
 })
 export class DemosComponent {
@@ -33,7 +33,9 @@ export class DemosComponent {
   visible = true
   estetica = { importante: true, error: false, urgente: true }
 
-  constructor(public vm: NotificationService) { }
+  constructor(public vm: NotificationService) {
+    this.calcula = this.calcula.bind(this)
+   }
 
   public get Nombre(): string { return this.nombre; }
   public set Nombre(valor: string) {
@@ -57,7 +59,11 @@ export class DemosComponent {
     this.estetica.error = !this.estetica.error
   }
 
-  calcula(a: number, b: number): number { return a + b }
+  cont = 0
+  calcula(a: number, b: number): number {
+    console.log(`calcula ${this.cont++}`)
+    return a + b
+  }
 
   add(provincia: string) {
     const id = this.listado[this.listado.length - 1].id + 1

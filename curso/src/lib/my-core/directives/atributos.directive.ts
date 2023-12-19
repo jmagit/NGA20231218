@@ -1,14 +1,13 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { ErrorMessagePipe } from '../pipes/cadenas.pipe';
-import { Subject, Subscriber, Subscription } from 'rxjs';
 
 @Directive({
   selector: `[myWinConfirm]`,
   standalone: true
 })
 export class WindowConfirmDirective {
-  @Output('myWinConfirm') winConfirm: EventEmitter<any> = new EventEmitter();
+  @Output('myWinConfirm') winConfirm: EventEmitter<unknown> = new EventEmitter();
   // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('myWinConfirmMessage') winConfirmMessage = '¿Seguro?';
   @HostBinding('class.pressed') isPressed: boolean = false;
