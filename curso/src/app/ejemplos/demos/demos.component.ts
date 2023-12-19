@@ -5,16 +5,17 @@ import { Unsubscribable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ElipsisPipe, CapitalizePipe, SizerComponent, ExecPipe } from '@my/core';
-import { CardComponent } from 'src/app/common-component';
+import { CardComponent, FormButtonsComponent } from 'src/app/common-component';
 import { CalculadoraComponent } from '../calculadora/calculadora.component';
 
 @Component({
-    selector: 'app-demos',
-    standalone: true,
-    templateUrl: './demos.component.html',
-    styleUrl: './demos.component.css',
-    imports: [CommonModule, FormsModule, ElipsisPipe, CapitalizePipe, SizerComponent, CalculadoraComponent, CardComponent, NotificationComponent, ExecPipe ],
-    // providers: [ NotificationService ],
+  selector: 'app-demos',
+  standalone: true,
+  templateUrl: './demos.component.html',
+  styleUrl: './demos.component.css',
+  imports: [CommonModule, FormsModule, ElipsisPipe, CapitalizePipe, SizerComponent, CalculadoraComponent,
+    CardComponent, NotificationComponent, ExecPipe, FormButtonsComponent],
+  // providers: [ NotificationService ],
 })
 export class DemosComponent {
   private suscriptor?: Unsubscribable;
@@ -35,7 +36,7 @@ export class DemosComponent {
 
   constructor(public vm: NotificationService) {
     this.calcula = this.calcula.bind(this)
-   }
+  }
 
   public get Nombre(): string { return this.nombre; }
   public set Nombre(valor: string) {
@@ -67,7 +68,7 @@ export class DemosComponent {
 
   add(provincia: string) {
     const id = this.listado[this.listado.length - 1].id + 1
-    this.listado.push({id, nombre: provincia})
+    this.listado.push({ id, nombre: provincia })
     this.idProvincia = id
   }
 
@@ -92,7 +93,7 @@ export class DemosComponent {
   ];
   idioma = this.idiomas[0].codigo;
   calculos: Array<Calculo> = [];
-  valCalculadora = 666;
+  valCalculadora = 777;
 
   ponResultado(origen: string, valor: number) {
     this.calculos.push({
@@ -102,8 +103,8 @@ export class DemosComponent {
     });
   }
 }
-  interface Calculo {
-    pos: number
-    origen: string
-    valor: number
-  }
+interface Calculo {
+  pos: number
+  origen: string
+  valor: number
+}
