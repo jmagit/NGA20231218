@@ -3,7 +3,7 @@
 import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges, forwardRef } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { DatePipe, } from '@angular/common';
+import { DatePipe, NgFor, } from '@angular/common';
 import { PaginatorModule } from 'primeng/paginator';
 import { ErrorMessagePipe, TypeValidator } from '@my/core';
 import { LibrosViewModelService } from './servicios.service';
@@ -92,7 +92,7 @@ export class LibrosViewComponent implements OnInit, OnDestroy {
     templateUrl: './tmpl-list.con-rutas.component.html',
     styleUrls: ['./componente.component.css'],
     standalone: true,
-    imports: [RouterLink, PaginatorModule]
+    imports: [RouterLink, PaginatorModule, NgFor]
 })
 export class LibrosListComponent implements OnChanges, OnDestroy {
   @Input() page = 0

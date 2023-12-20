@@ -18,7 +18,7 @@ import { LibrosComponent } from '../libros';
 })
 export class DashboardComponent {
   menu = [
-    // { texto: 'libros', icono: 'fa-solid fa-book', componente: LibrosComponent},
+    { texto: 'libros', icono: 'fa-solid fa-book', componente: LibrosComponent},
     { texto: 'detectcion', icono: 'fa-solid fa-chalkboard-user', componente: DeteccionComponent},
     { texto: 'demos', icono: 'fa-solid fa-chalkboard-user', componente: DemosComponent},
     { texto: 'inicio', icono: 'fa-solid fa-house', componente: HomeComponent},
