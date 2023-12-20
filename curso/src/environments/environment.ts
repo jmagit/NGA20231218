@@ -3,4 +3,5 @@ export const environment = {
   apiURL: '/api/',
   securityApiURL: '/api/',
   ERROR_LEVEL: 1,
+  wsEndpoint: '/ws/'
 };

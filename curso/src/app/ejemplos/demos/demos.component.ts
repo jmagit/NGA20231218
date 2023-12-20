@@ -1,4 +1,4 @@
-import { Component, NgZone } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone } from '@angular/core';
 import { NotificationService, NotificationType } from '../../common-services';
 import { NotificationComponent } from "../../main";
 import { Unsubscribable } from 'rxjs';
@@ -16,6 +16,7 @@ import { CalculadoraComponent } from '../calculadora/calculadora.component';
   imports: [CommonModule, FormsModule, ElipsisPipe, CapitalizePipe, SizerComponent, CalculadoraComponent,
     CardComponent, NotificationComponent, ExecPipe, FormButtonsComponent],
   // providers: [ NotificationService ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DemosComponent {
   private suscriptor?: Unsubscribable;
@@ -29,12 +30,12 @@ export class DemosComponent {
     { id: 4, nombre: 'ciudad Real' },
   ]
   idProvincia = 2
-
+  sinVincular = ''
   resultado?: string
   visible = true
   estetica = { importante: true, error: false, urgente: true }
 
-  constructor(public vm: NotificationService, private ngZone: NgZone) {
+  constructor(public vm: NotificationService, /*private ngZone: NgZone,*/ private changeDetectorRef: ChangeDetectorRef) {
     this.calcula = this.calcula.bind(this)
   }
 
@@ -42,10 +43,12 @@ export class DemosComponent {
   public set Nombre(valor: string) {
     if (valor === this.nombre) return
     this.nombre = valor
+    this.changeDetectorRef.markForCheck()
   }
 
   public saluda(): void {
-    this.resultado = `Hola ${this.Nombre}`
+    // this.resultado = `Hola ${this.Nombre}`
+    this.sinVincular = `Hola ${this.Nombre}`
   }
   public despide() {
     this.resultado = `Adios ${this.Nombre}`
@@ -115,19 +118,19 @@ export class DemosComponent {
   }
   outZone() {
     this.progress = 0
-    this.ngZone.runOutsideAngular(() => {
-      const interval = setInterval(() => {
-        if (this.progress % 10)
-          this.progress++
-        else
-          this.ngZone.run(() => this.progress++)
-        if (this.progress >= 1000) {
-          clearInterval(interval)
-          console.log('end interval');
-          this.ngZone.run(() => this.progress = 1000)
-        }
-      }, 10)
-    })
+    // this.ngZone.runOutsideAngular(() => {
+    //   const interval = setInterval(() => {
+    //     if (this.progress % 10)
+    //       this.progress++
+    //     else
+    //       this.ngZone.run(() => this.progress++)
+    //     if (this.progress >= 1000) {
+    //       clearInterval(interval)
+    //       console.log('end interval');
+    //       this.ngZone.run(() => this.progress = 1000)
+    //     }
+    //   }, 10)
+    // })
   }
 }
 interface Calculo {

@@ -8,6 +8,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { ErrorMessagePipe, TypeValidator } from '@my/core';
 import { LibrosViewModelService } from './servicios.service';
 import { Subscription } from 'rxjs';
+import { FormButtonsComponent } from "../common-component";
 
 @Component({
   selector: 'app-libros',
@@ -112,7 +113,7 @@ export class LibrosListComponent implements OnChanges, OnDestroy {
     templateUrl: './tmpl-form.component.html',
     styleUrls: ['./componente.component.css'],
     standalone: true,
-    imports: [FormsModule, TypeValidator, ErrorMessagePipe]
+    imports: [FormsModule, TypeValidator, ErrorMessagePipe, FormButtonsComponent]
 })
 export class LibrosAddComponent implements OnInit {
   constructor(protected vm: LibrosViewModelService) { }
@@ -126,7 +127,7 @@ export class LibrosAddComponent implements OnInit {
     templateUrl: './tmpl-form.component.html',
     styleUrls: ['./componente.component.css'],
     standalone: true,
-    imports: [FormsModule, TypeValidator, ErrorMessagePipe]
+    imports: [FormsModule, TypeValidator, ErrorMessagePipe, FormButtonsComponent, RouterLink]
 })
 export class LibrosEditComponent implements OnInit, OnDestroy {
   private obs$?: Subscription;
@@ -153,7 +154,7 @@ export class LibrosEditComponent implements OnInit, OnDestroy {
     templateUrl: './tmpl-view.component.html',
     styleUrls: ['./componente.component.css'],
     standalone: true,
-    imports: [DatePipe]
+    imports: [DatePipe, FormButtonsComponent, RouterLink]
 })
 export class LibrosViewComponent implements OnChanges {
   @Input() id?: string;

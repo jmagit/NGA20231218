@@ -6,6 +6,8 @@ import { LoginComponent } from '../security';
 import { ContactosComponent } from '../contactos';
 import { CalculadoraComponent } from '../ejemplos/calculadora/calculadora.component';
 import { DemosComponent } from '../ejemplos/demos/demos.component';
+import { DeteccionComponent } from '../deteccion/deteccion.component';
+import { LibrosComponent } from '../libros';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +18,8 @@ import { DemosComponent } from '../ejemplos/demos/demos.component';
 })
 export class DashboardComponent {
   menu = [
+    // { texto: 'libros', icono: 'fa-solid fa-book', componente: LibrosComponent},
+    { texto: 'detectcion', icono: 'fa-solid fa-chalkboard-user', componente: DeteccionComponent},
     { texto: 'demos', icono: 'fa-solid fa-chalkboard-user', componente: DemosComponent},
     { texto: 'inicio', icono: 'fa-solid fa-house', componente: HomeComponent},
     { texto: 'calculadora', icono: 'fa-solid fa-calculator', componente: CalculadoraComponent},

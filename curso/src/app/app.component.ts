@@ -6,6 +6,7 @@ import { NotificationComponent, NotificationModalComponent } from './main';
 import { DemosComponent } from './ejemplos/demos/demos.component';
 import { NotificationService, NotificationType } from './common-services';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DeteccionComponent } from './deteccion/deteccion.component';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   imports: [CommonModule, RouterOutlet, NotificationComponent, NotificationModalComponent,
     DemosComponent,
     DashboardComponent,
+    DeteccionComponent,
    ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
