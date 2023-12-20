@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/no-host-metadata-property */
 /* eslint-disable @angular-eslint/template/label-has-associated-control */
 /* eslint-disable @angular-eslint/component-selector */
 import { Component, EventEmitter, Input, Output } from '@angular/core';
@@ -11,7 +12,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
       <output>FontSize: {{size}}px</output>
       <button (click)="inc()">+</button>
     </div>
-  `
+  `,
+  host: { 'role': 'slider', '[attr.aria-valuenow]': 'size' }
 })
 export class SizerComponent {
   @Input()  size: number | string = 12;

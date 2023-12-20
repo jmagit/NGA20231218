@@ -1,4 +1,4 @@
-.Calculadora {
+:host {
   display: grid;
   grid-gap: 5px;
   grid-template-columns: repeat(4, 1fr);
@@ -11,21 +11,21 @@
   font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 @media (min-width: 768px) {
-  .Calculadora {
+  :host {
     max-width: 500px;
   }
 }
 @media (min-width: 992px) {
-  .Calculadora {
+  :host {
     max-width: 700px;
   }
 }
 @media (min-width: 1200px) {
-  .Calculadora {
+  :host {
     max-width: 900px;
   }
 }
-.Calculadora .Pantalla {
+.Pantalla {
   grid-column: 1/span 4;
   background-color: #004000;
   color: yellow;
@@ -35,26 +35,26 @@
   word-wrap: break-word;
 }
 @media (min-width: 576px) {
-  .Calculadora .Pantalla {
+  .Pantalla {
     font-size: 2em !important;
   }
 }
 @media (min-width: 768px) {
-  .Calculadora .Pantalla {
+  .Pantalla {
     font-size: 3em !important;
   }
 }
 @media (min-width: 992px) {
-  .Calculadora .Pantalla {
+  .Pantalla {
     font-size: 4em !important;
   }
 }
 @media (min-width: 1200px) {
-  .Calculadora .Pantalla {
+  .Pantalla {
     font-size: 5em !important;
   }
 }
-.Calculadora .Resumen {
+.Resumen {
   grid-column: 1/span 4;
   text-align: right !important;
   white-space: nowrap;
@@ -62,72 +62,72 @@
   text-overflow: ellipsis;
 }
 @media (min-width: 576px) {
-  .Calculadora .Resumen {
+  .Resumen {
     font-size: 1.3em !important;
   }
 }
 @media (min-width: 768px) {
-  .Calculadora .Resumen {
+  .Resumen {
     font-size: 1.6em !important;
   }
 }
 @media (min-width: 992px) {
-  .Calculadora .Resumen {
+  .Resumen {
     font-size: 1.6em !important;
   }
 }
 @media (min-width: 1200px) {
-  .Calculadora .Resumen {
+  .Resumen {
     font-size: 2.2em !important;
   }
 }
-.Calculadora .btnDigito {
+.btnDigito {
   color: navy;
   width: 100%;
   font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 @media (min-width: 576px) {
-  .Calculadora .btnDigito {
+  .btnDigito {
     font-size: 1.3em !important;
   }
 }
 @media (min-width: 768px) {
-  .Calculadora .btnDigito {
+  .btnDigito {
     font-size: 1.6em !important;
   }
 }
 @media (min-width: 992px) {
-  .Calculadora .btnDigito {
+  .btnDigito {
     font-size: 1.6em !important;
   }
 }
 @media (min-width: 1200px) {
-  .Calculadora .btnDigito {
+  .btnDigito {
     font-size: 2.2em !important;
   }
 }
-.Calculadora .btnOperar {
+.btnOperar {
   color: red;
   width: 100%;
   font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 @media (min-width: 576px) {
-  .Calculadora .btnOperar {
+  .btnOperar {
     font-size: 1.3em !important;
   }
 }
 @media (min-width: 768px) {
-  .Calculadora .btnOperar {
+  .btnOperar {
     font-size: 1.6em !important;
   }
 }
 @media (min-width: 992px) {
-  .Calculadora .btnOperar {
+  .btnOperar {
     font-size: 1.9em !important;
   }
 }
 @media (min-width: 1200px) {
-  .Calculadora .btnOperar {
+  .btnOperar {
     font-size: 2.2em !important;
   }
 }

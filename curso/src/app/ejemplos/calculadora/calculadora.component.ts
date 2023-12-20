@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, OnChanges, Output, SimpleChanges, HostListener } from '@angular/core';
 import { LoggerService, ToComaDecimalPipe } from '@my/core';
 import { environment } from 'src/environments/environment';
 import { SlicePipe } from '@angular/common';
@@ -10,7 +10,9 @@ import { NotificationService, NotificationType } from 'src/app/common-services';
     templateUrl: './calculadora.component.html',
     styleUrls: ['./calculadora.component.css'],
     standalone: true,
-    imports: [SlicePipe, ToComaDecimalPipe]
+    imports: [SlicePipe, ToComaDecimalPipe],
+    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+    host: { 'tabIndex': '0' }
 })
 export class CalculadoraComponent implements OnInit, OnChanges {
   public readonly Math = Math;
@@ -156,6 +158,7 @@ export class CalculadoraComponent implements OnInit, OnChanges {
   //   this.teclado.unsubscribe()
   // }
 
+  @HostListener('keydown', ['$event'])
   handleKeyDown(ev: KeyboardEvent) {
     if ('0' <= ev.key && ev.key <= '9')
       this.ponDigito(ev.key)

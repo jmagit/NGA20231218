@@ -32,6 +32,7 @@ export class LibrosComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void { this.vm.clear(); }
 }
 
+/*
 @Component({
   selector: 'app-libros-list',
   templateUrl: './tmpl-list.sin-rutas.component.html',
@@ -83,8 +84,8 @@ export class LibrosViewComponent implements OnInit, OnDestroy {
   ngOnInit(): void { }
   ngOnDestroy(): void { }
 }
+*/
 
-/*
 @Component({
     selector: 'app-libros-list',
     templateUrl: './tmpl-list.con-rutas.component.html',
@@ -166,7 +167,6 @@ export class LibrosViewComponent implements OnChanges {
     }
   }
 }
-*/
 
 
 export const LIBROS_COMPONENTES = [
