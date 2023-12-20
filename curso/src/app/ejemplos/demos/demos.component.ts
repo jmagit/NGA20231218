@@ -15,7 +15,7 @@ import { CalculadoraComponent } from '../calculadora/calculadora.component';
   styleUrl: './demos.component.css',
   imports: [CommonModule, FormsModule, ElipsisPipe, CapitalizePipe, SizerComponent, CalculadoraComponent,
     CardComponent, NotificationComponent, ExecPipe, FormButtonsComponent],
-  providers: [ NotificationService ],
+  // providers: [ NotificationService ],
 })
 export class DemosComponent {
   private suscriptor?: Unsubscribable;
@@ -99,7 +99,7 @@ export class DemosComponent {
   }
   ngOnDestroy(): void {
     if (this.suscriptor) {
-      // this.suscriptor.unsubscribe();
+      this.suscriptor.unsubscribe();
     }
   }
   progress = 0;
