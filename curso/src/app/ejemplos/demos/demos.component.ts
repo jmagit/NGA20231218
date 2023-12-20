@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { NotificationService, NotificationType } from '../../common-services';
 import { NotificationComponent } from "../../main";
 import { Unsubscribable } from 'rxjs';
@@ -15,7 +15,7 @@ import { CalculadoraComponent } from '../calculadora/calculadora.component';
   styleUrl: './demos.component.css',
   imports: [CommonModule, FormsModule, ElipsisPipe, CapitalizePipe, SizerComponent, CalculadoraComponent,
     CardComponent, NotificationComponent, ExecPipe, FormButtonsComponent],
-  // providers: [ NotificationService ],
+  providers: [ NotificationService ],
 })
 export class DemosComponent {
   private suscriptor?: Unsubscribable;
@@ -34,7 +34,7 @@ export class DemosComponent {
   visible = true
   estetica = { importante: true, error: false, urgente: true }
 
-  constructor(public vm: NotificationService) {
+  constructor(public vm: NotificationService, private ngZone: NgZone) {
     this.calcula = this.calcula.bind(this)
   }
 
@@ -72,20 +72,6 @@ export class DemosComponent {
     this.idProvincia = id
   }
 
-  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
-  ngOnInit(): void {
-    this.suscriptor = this.vm.Notificacion.subscribe(n => {
-      if (n.Type !== NotificationType.error) { return; }
-      // window.alert(`Suscripcion: ${n.Message}`);
-      // this.vm.remove(this.vm.Listado.length - 1);
-    });
-  }
-  ngOnDestroy(): void {
-    if (this.suscriptor) {
-      this.suscriptor.unsubscribe();
-    }
-  }
-
   idiomas = [
     { codigo: 'en-US', region: 'USA' },
     { codigo: 'es', region: 'España' },
@@ -101,6 +87,47 @@ export class DemosComponent {
       origen,
       valor
     });
+  }
+
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
+  ngOnInit(): void {
+    this.suscriptor = this.vm.Notificacion.subscribe(n => {
+      if (n.Type !== NotificationType.error) { return; }
+      window.alert(`Suscripcion: ${n.Message}`);
+      this.vm.remove(this.vm.Listado.length - 1);
+    });
+  }
+  ngOnDestroy(): void {
+    if (this.suscriptor) {
+      // this.suscriptor.unsubscribe();
+    }
+  }
+  progress = 0;
+  inZone() {
+    this.progress = 0
+    const interval = setInterval(() => {
+      this.progress++
+      if (this.progress >= 1000) {
+        clearInterval(interval)
+        console.log('end interval');
+      }
+    }, 10)
+  }
+  outZone() {
+    this.progress = 0
+    this.ngZone.runOutsideAngular(() => {
+      const interval = setInterval(() => {
+        if (this.progress % 10)
+          this.progress++
+        else
+          this.ngZone.run(() => this.progress++)
+        if (this.progress >= 1000) {
+          clearInterval(interval)
+          console.log('end interval');
+          this.ngZone.run(() => this.progress = 1000)
+        }
+      }, 10)
+    })
   }
 }
 interface Calculo {
