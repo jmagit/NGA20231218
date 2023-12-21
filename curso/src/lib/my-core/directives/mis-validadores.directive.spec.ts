@@ -112,7 +112,7 @@ describe('uppercaseValidator', () => {
   })
 });
 
-fdescribe('positivoValidate', () => {
+describe('positivoValidate', () => {
   describe('OK', () => {
     [4, '4', 0].forEach(caso =>
       it(`Caso: '${caso}'`, () => {
@@ -133,15 +133,15 @@ fdescribe('positivoValidate', () => {
       control = new FormControl('');
     })
     it('OK', () => {
-      control = new FormControl(4);
+      control.setValue(4);
       expect(positivoValidator(control)).toBeNull()
     })
     it('NULL', () => {
-      control = new FormControl(null);
+      control.setValue(null);
       expect(positivoValidator(control)).toBeNull()
     })
     it('KO', () => {
-      control = new FormControl('algo');
+      control.setValue('algo');
       const result = positivoValidator(control)
       expect(result).not.toBeNull()
       expect(result?.['positivo']).not.toBeNull()
@@ -149,7 +149,7 @@ fdescribe('positivoValidate', () => {
       // pending('Falta mirar ...')
     })
     xit('ERROR', () => {
-      control = new FormControl(null);
+      control.setValue(null);
       expect(() => positivoValidator(control)).toThrow()
     })
 
