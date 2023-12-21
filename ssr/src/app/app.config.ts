@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi, withInterceptors } from '@angular/common/http';
 import { ajaxWaitInterceptor } from './main';
 import { AuthInterceptor } from './security';
+import { provideClientHydration } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,6 +23,6 @@ export const appConfig: ApplicationConfig = {
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, },
     provideHttpClient(withInterceptorsFromDi() , withInterceptors([ajaxWaitInterceptor])),
     {provide: RouteReuseStrategy, useClass: NotRouteReuseStrategy},
-    provideRouter(routes, withComponentInputBinding())
+    provideRouter(routes, withComponentInputBinding()), provideClientHydration()
   ]
 };
