@@ -18,10 +18,11 @@ export class AuthService {
   private refresh: string = '';
   private name = '';
   private roles: Array<string> = []
-  private storage: Storage;
+  private storage: any;
 
   constructor(private eventBus: EventBusService) {
-    this.storage = sessionStorage ?? localStorage;
+    if(typeof window !== "undefined" )
+      this.storage = window.sessionStorage ?? window.localStorage;
     if (this.storage && this.storage['AuthService']) {
       const cache = JSON.parse(this.storage['AuthService']);
       this.isAuth = cache.isAuth;
