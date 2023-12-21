@@ -25,7 +25,7 @@ export const routes: Routes = [
   { path: 'contactos', component: ContactosListComponent, canActivate: [AuthWithRedirectCanActivate('/login')] },
   { path: 'contactos/add', component: ContactosAddComponent, canActivate: [AuthCanActivateFn] },
   { path: 'contactos/:id/edit', component: ContactosEditComponent, canActivate: [AuthCanActivateFn] },
-  { path: 'contactos/:id', component: ContactosViewComponent },
+  { path: 'contactos/:id', component: ContactosViewComponent, canActivate: [AuthCanActivateFn] },
   { path: 'contactos/:id/:kk', component: ContactosViewComponent },
   { path: 'alysia/baxendale', redirectTo: '/contactos/43' },
   // { path: 'libros', children: [

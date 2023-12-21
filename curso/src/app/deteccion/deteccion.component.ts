@@ -23,7 +23,7 @@ export class DeteccionComponent {
   }
   set Progress(value: number) {
     this.progress = value;
-    if(this.progress % 10 === 0)
+    if(this.progress % 100 === 0)
       this.detector.detectChanges()
     // this.simple.set(value)
   }
