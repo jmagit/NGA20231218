@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, DebugElement, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ShowErrorsDirective, WindowConfirmDirective } from './atributos.directive';
 
 @Component({
-  template: `<button type="button" (myWinConfirm)="MyOutput($event)" [myWinConfirmMessage]="MyInput"  ></button>`
+  template: `<button type="button" (myWinConfirm)="MyOutput($event)" [myWinConfirmMessage]="MyInput" >send</button>`
 })
 class WindowConfirmDirectiveHostComponent {
   MyInput: any = null;
@@ -17,7 +18,8 @@ describe('WindowConfirmDirective', () =>  {
   let tag: DebugElement;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WindowConfirmDirectiveHostComponent, WindowConfirmDirective ],
+      declarations: [ WindowConfirmDirectiveHostComponent, ],
+      imports: [ WindowConfirmDirective ]
     })
     .compileComponents();
   });
@@ -84,7 +86,8 @@ describe('myShowErrors', () =>  {
   let tag: DebugElement;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ShowErrorsDirectiveHostComponent, ShowErrorsDirective ],
+      declarations: [ ShowErrorsDirectiveHostComponent, ],
+      imports: [ ShowErrorsDirective ],
     })
     .compileComponents();
   });

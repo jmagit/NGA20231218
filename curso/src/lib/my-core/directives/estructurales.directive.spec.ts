@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonModule } from '@angular/common';
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
@@ -5,7 +6,7 @@ import { By } from '@angular/platform-browser';
 import { UnlessDirective } from './estructurales.directive';
 
 @Component({
-  template: `<button type="button" [myUnless]="MyInput"  ></button>`
+  template: `<button type="button" [myUnless]="MyInput" >visible</button>`
 })
 class UnlessDirectiveHostComponent {
   MyInput: any = null;
@@ -39,7 +40,8 @@ describe('UnlessDirective', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TestComponent, UnlessDirective],
+      declarations: [TestComponent, ],
+      imports: [UnlessDirective, ]
     });
   });
 

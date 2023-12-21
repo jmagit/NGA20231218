@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './home.component.css'
 })
 export class HomeComponent /*implements OnInit*/ {
-  title = 'AIRBUS';
+  title = 'curso';
 
   // constructor(out: LoggerService) {
   //   out.error(`Es un error`)

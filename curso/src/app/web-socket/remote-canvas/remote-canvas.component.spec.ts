@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RemoteCanvasComponent } from './remote-canvas.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('RemoteCanvasComponent', () => {
   let component: RemoteCanvasComponent;
@@ -8,9 +9,9 @@ describe('RemoteCanvasComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [RemoteCanvasComponent]
-})
-    .compileComponents();
+      imports: [RemoteCanvasComponent, HttpClientTestingModule ]
+    })
+      .compileComponents();
 
     fixture = TestBed.createComponent(RemoteCanvasComponent);
     component = fixture.componentInstance;

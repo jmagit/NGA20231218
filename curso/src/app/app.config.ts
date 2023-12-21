@@ -1,11 +1,11 @@
 import { ApplicationConfig, LOCALE_ID } from '@angular/core';
-import { RouteReuseStrategy, provideRouter, withComponentInputBinding } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { DATE_PIPE_DEFAULT_OPTIONS, registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import localeEsExtra from '@angular/common/locales/extra/es';
 registerLocaleData(localeEs, 'es', localeEsExtra);
 
-import { NotRouteReuseStrategy, routes } from './app.routes';
+import { routes } from './app.routes';
 import { ERROR_LEVEL /*, LoggerService*/ } from '@my/core';
 import { environment } from 'src/environments/environment';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi, withInterceptors } from '@angular/common/http';

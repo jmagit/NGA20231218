@@ -2,9 +2,9 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ERROR_LEVEL, LoggerService } from '@my/core';
-import { NotificationService, NotificationType } from '../common-services';
 
 import { CalculadoraComponent } from './calculadora.component';
+import { NotificationService, NotificationType } from 'src/app/common-services';
 
 describe('Pruebas aisladas de la calculadora', () => {
 	let calc: CalculadoraComponent;
@@ -269,7 +269,8 @@ describe('CalculadoraComponent', () => {
     it('teclado', () => {
       spyOn(console, 'log').and.stub()
       // const pantalla: HTMLElement = fixture.debugElement.query(By.css('.Pantalla')).nativeElement;
-      const contenedor = fixture.debugElement.query(By.css('.Calculadora'));
+      // const contenedor = fixture.debugElement.query(By.css('.Calculadora'));
+      const contenedor = fixture.debugElement;
       contenedor.triggerEventHandler('keydown', { key: '9' });
       fixture.detectChanges()
       expect(component.Pantalla).toBe('9')
