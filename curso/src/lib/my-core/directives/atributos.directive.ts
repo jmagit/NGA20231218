@@ -58,6 +58,7 @@ export class FocusedDirective {
 export class ShowErrorsDirective implements OnChanges {
   private pipe = new ErrorMessagePipe();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input('myShowErrors') errors: any = undefined;
   @HostBinding('textContent') mensaje: string = '';
   @HostBinding('hidden') hidden: boolean = false;

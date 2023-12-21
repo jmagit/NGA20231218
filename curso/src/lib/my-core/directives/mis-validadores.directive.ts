@@ -63,4 +63,14 @@ export class TypeValidator implements Validator {
   }
 }
 
+export const positivoValidate = (value: any): boolean => {
+  return (typeof value === 'number' || typeof value === 'string') && !isNaN(+value) && +value >= 0
+}
+
+export const positivoValidator = (control: AbstractControl): { [key: string]: any } | null => {
+  // if (!control.value) { throw new Error('No puede ser nulo'); }
+  if (!control.value) { return null; }
+  return !positivoValidate(control.value) ?  { positivo: 'No es un número positivo' } : null
+}
+
 export const MIS_VALIDADORES = [ NIFNIEValidator, UppercaseValidator, TypeValidator ]

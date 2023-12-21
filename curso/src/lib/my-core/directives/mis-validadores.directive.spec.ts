@@ -1,5 +1,5 @@
 import { FormControl, FormsModule } from '@angular/forms';
-import { nifnieValidator, NIFNIEValidator, uppercaseValidator, UppercaseValidator } from './mis-validadores.directive';
+import { nifnieValidator, NIFNIEValidator, positivoValidate, positivoValidator, uppercaseValidator, UppercaseValidator } from './mis-validadores.directive';
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
@@ -32,9 +32,9 @@ describe('nifnieValidator', () => {
 });
 
 @Component({
-    template: `<input type="text" [(ngModel)]="valor" #myInput="ngModel" nifnie >`,
-    standalone: true,
-    imports: [FormsModule, NIFNIEValidator]
+  template: `<input type="text" [(ngModel)]="valor" #myInput="ngModel" nifnie >`,
+  standalone: true,
+  imports: [FormsModule, NIFNIEValidator]
 })
 class nifnieValidatorHostComponent {
   @ViewChild('myInput') control?: FormControl<string>
@@ -48,8 +48,8 @@ describe('NIFNIEValidator', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [FormsModule, nifnieValidatorHostComponent, NIFNIEValidator]
-})
+      imports: [FormsModule, nifnieValidatorHostComponent, NIFNIEValidator]
+    })
       .compileComponents();
   });
 
@@ -109,6 +109,50 @@ describe('uppercaseValidator', () => {
     const directive = new UppercaseValidator();
     control.setValue(null);
     expect(directive.validate(control)).toBeNull();
+  })
+});
+
+fdescribe('positivoValidate', () => {
+  describe('OK', () => {
+    [4, '4', 0].forEach(caso =>
+      it(`Caso: '${caso}'`, () => {
+        expect(positivoValidate(caso)).toBeTrue()
+      })
+    );
+  });
+  describe('KO', () => {
+    ['kk', '3$', -1, null, undefined, [ 4 ], { algo: 4 }].forEach(caso =>
+      it(`Caso: '${caso}'`, () => {
+        expect(positivoValidate(caso)).toBeFalse()
+      })
+    );
+  });
+  describe('positivoValidator', () => {
+    let control: FormControl = new FormControl('input');
+    beforeEach(() => {
+      control = new FormControl('');
+    })
+    it('OK', () => {
+      control = new FormControl(4);
+      expect(positivoValidator(control)).toBeNull()
+    })
+    it('NULL', () => {
+      control = new FormControl(null);
+      expect(positivoValidator(control)).toBeNull()
+    })
+    it('KO', () => {
+      control = new FormControl('algo');
+      const result = positivoValidator(control)
+      expect(result).not.toBeNull()
+      expect(result?.['positivo']).not.toBeNull()
+      expect(result?.['positivo']).toBe('No es un número positivo')
+      // pending('Falta mirar ...')
+    })
+    xit('ERROR', () => {
+      control = new FormControl(null);
+      expect(() => positivoValidator(control)).toThrow()
+    })
+
   })
 });
 
