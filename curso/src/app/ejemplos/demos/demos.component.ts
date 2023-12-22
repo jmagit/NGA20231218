@@ -4,7 +4,7 @@ import { NotificationComponent } from "../../main";
 import { Unsubscribable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ElipsisPipe, CapitalizePipe, SizerComponent, ExecPipe } from '@my/core';
+import { ElipsisPipe, CapitalizePipe, SizerComponent, ExecPipe, LoggerService } from '@my/core';
 import { CardComponent, FormButtonsComponent } from 'src/app/common-component';
 import { CalculadoraComponent } from '../calculadora/calculadora.component';
 
@@ -35,7 +35,7 @@ export class DemosComponent {
   visible = true
   estetica = { importante: true, error: false, urgente: true }
 
-  constructor(public vm: NotificationService, /*private ngZone: NgZone,*/ private changeDetectorRef: ChangeDetectorRef) {
+  constructor(public vm: NotificationService, private ngZone: NgZone, private changeDetectorRef: ChangeDetectorRef, private log: LoggerService) {
     this.calcula = this.calcula.bind(this)
   }
 
@@ -65,7 +65,7 @@ export class DemosComponent {
 
   cont = 0
   calcula(a: number, b: number): number {
-    console.log(`calcula ${this.cont++}`)
+    this.log.log(`ejecuta calcula ${this.cont++}`)
     return a + b
   }
 
@@ -118,19 +118,19 @@ export class DemosComponent {
   }
   outZone() {
     this.progress = 0
-    // this.ngZone.runOutsideAngular(() => {
-    //   const interval = setInterval(() => {
-    //     if (this.progress % 10)
-    //       this.progress++
-    //     else
-    //       this.ngZone.run(() => this.progress++)
-    //     if (this.progress >= 1000) {
-    //       clearInterval(interval)
-    //       console.log('end interval');
-    //       this.ngZone.run(() => this.progress = 1000)
-    //     }
-    //   }, 10)
-    // })
+    this.ngZone.runOutsideAngular(() => {
+      const interval = setInterval(() => {
+        if (this.progress % 10)
+          this.progress++
+        else
+          this.ngZone.run(() => this.progress++)
+        if (this.progress >= 1000) {
+          clearInterval(interval)
+          console.log('end interval');
+          this.ngZone.run(() => this.progress = 1000)
+        }
+      }, 10)
+    })
   }
 }
 interface Calculo {

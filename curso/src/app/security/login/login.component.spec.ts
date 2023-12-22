@@ -17,11 +17,12 @@ describe('LoginComponent', () => {
   let loginSrv: LoginService
 
   beforeEach(async() => {
+    spyOn(console, 'warn')
     TestBed.configureTestingModule({
-    providers: [LoginService, AuthService, NotificationService, LoggerService,],
-    imports: [HttpClientTestingModule, RouterTestingModule, FormsModule, LoginComponent],
-    schemas: [NO_ERRORS_SCHEMA]
-})
+        providers: [LoginService, AuthService, NotificationService, LoggerService,],
+        imports: [HttpClientTestingModule, RouterTestingModule, FormsModule, LoginComponent],
+        schemas: [NO_ERRORS_SCHEMA]
+    })
     .compileComponents();
   });
 

@@ -1,14 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-
-export interface Pageable<E> {
-  page: number,
-  pages: number,
-  rows: number,
-  list: Array<E>
-}
 
 export abstract class RESTDAOService<T, K> {
   protected baseUrl = environment.apiURL;
@@ -32,39 +26,77 @@ export abstract class RESTDAOService<T, K> {
     return this.http.delete<T>(`${this.baseUrl}/${id}`, this.option);
   }
 }
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export class DAOServiceMock<T, K> extends RESTDAOService<T, number> {
-  constructor(public listado: Array<T>) {
+export class DAOServiceMock<T, K> extends RESTDAOService<T, K> {
+  private readonly pk: string
+  private readonly listado: Array<T>
+  constructor(listado: Array<T>) {
     super('')
+    this.listado = listado.map(item => ({ ...item }))
+    this.pk = Object.keys(this.listado[0] as { [i: string]: any })[0]
   }
   override query(): Observable<Array<T>> {
     return of(this.listado);
   }
-  override get(id: number): Observable<T> {
-    if (id > this.listado.length) return throwError(() => "404 not found")
-    return of(this.listado[id - 1]);
+  override get(id: K): Observable<T> {
+    if (+id < 0) return this.unknownError(id)
+    const index = this.findIndex(id)
+    if (index < 0)
+      return this.notFound(id)
+    return of(this.listado[index]);
   }
   override add(item: T): Observable<T> {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const tipo = item as { [i: string]: any }
-    if (tipo[Object.keys(tipo)[0]] < 0) return throwError(() => "404 not found")
+    const id = (item as { [i: string]: any })[this.pk]
+    if (+id < 0) return this.unknownError(id)
     this.listado.push(item)
     return of(item);
   }
-  override change(id: number, item: T): Observable<T> {
-    if (id <= 0 || id > this.listado.length) return throwError(() => "404 not found")
-    this.listado[id - 1] = item;
+  override change(id: K, item: T): Observable<T> {
+    if (+id < 0) return this.unknownError(id)
+    const index = this.findIndex(id)
+    if (index < 0)
+      return this.notFound(id)
+    this.listado[index] = item;
     return of(item);
   }
-  override remove(id: number): Observable<T> {
-    if (id <= 0 || id > this.listado.length) return throwError(() => "404 not found")
-    const item = this.listado[id - 1];
-    this.listado.splice(id - 1, 1)
+  override remove(id: K): Observable<T> {
+    if (+id < 0) return this.unknownError(id)
+    const index = this.findIndex(id)
+    if (index < 0)
+      return this.notFound(id)
+    const item = this.listado[index];
+    this.listado.splice(index, 1)
     return of(item);
   }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  page(page: number, _rows: number = 20): Observable<Pageable<any>> {
+  page(page: number, _rows: number = 20): Observable<{ page: number, pages: number, rows: number, list: Array<any> }> {
     return of({ page, pages: 1, rows: this.listado.length, list: this.listado });
+  }
+
+  private findIndex(id: K) {
+    return this.listado.findIndex(item => (item as { [i: string]: any })[this.pk] == id)
+  }
+
+  private unknownError(id: K) {
+    return throwError(() => new HttpErrorResponse({
+      status: 0,
+      statusText: 'Not Found',
+      url: `${this.baseUrl}/${id}`,
+      error: {
+        isTrusted: true
+      }
+    })) as Observable<T>
+  }
+  private notFound(id: K) {
+    return throwError(() => new HttpResponse({
+      status: 404,
+      statusText: 'Not Found',
+      url: `${this.baseUrl}/${id}`,
+      body: {
+        "type": "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.4",
+        "title": "Not Found",
+        "status": 404,
+        "instance": `${this.baseUrl}/${id}`
+      }
+    })) as Observable<T>
   }
 }
 

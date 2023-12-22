@@ -7,6 +7,8 @@ describe('DeteccionComponent', () => {
   let fixture: ComponentFixture<DeteccionComponent>;
 
   beforeEach(async () => {
+    spyOn(console, 'warn')
+    spyOn(console, 'log')
     await TestBed.configureTestingModule({
       imports: [DeteccionComponent]
     })

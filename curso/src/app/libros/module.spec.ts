@@ -63,9 +63,9 @@ describe('Modulo Libros', () => {
       "wiki":"https://es.wikipedia.org/wiki/Viaje_al_centro_de_la_Tierra"
   },
   ];
-  const dataAddMock: { [index: string]: any } = { id: 0, nombre: "Pepito", apellido: "Grillo" }
-  const dataEditMock: { [index: string]: any } = { id: 1, nombre: "Pepito", apellido: "Grillo" }
-  const dataBadMock: { [index: string]: any } = { id: -1 }
+  const dataAddMock: { [index: string]: any } = { idLibro:"0", titulo: "Más falso que un político" }
+  const dataEditMock: { [index: string]: any } = { idLibro:"1", titulo: "Más falso que un político" }
+  const dataBadMock: { [index: string]: any } = { idLibro: "-1" }
 
   describe('DAOService', () => {
     beforeEach(() => {

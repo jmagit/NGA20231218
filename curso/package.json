@@ -7,6 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "coverage": "ng test --no-watch --code-coverage",
+    "sonar": "sonar-scanner.bat -D\"sonar.projectKey=curso-angular\" -D\"sonar.sources=./src\" -D\"sonar.test.inclusions=**/*.spec.ts\" -D\"sonar.javascript.lcov.reportPaths=./coverage/curso/lcov.info\" -D\"sonar.host.url=http://localhost:9000\" -D\"sonar.login=sqp_127a71d78480311b432a11347b9b475fa769e125\"",
     "lint": "ng lint"
   },
   "private": true,
@@ -46,6 +48,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "karma-junit-reporter": "^2.0.1",
     "typescript": "~5.2.2"
   }
 }
