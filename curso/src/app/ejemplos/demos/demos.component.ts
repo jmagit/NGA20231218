@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone } from '@angular/core';
 import { NotificationService, NotificationType } from '../../common-services';
 import { NotificationComponent } from "../../main";
-import { Unsubscribable } from 'rxjs';
+import { Subscription, Unsubscribable, filter, map } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ElipsisPipe, CapitalizePipe, SizerComponent, ExecPipe, LoggerService } from '@my/core';
 import { CardComponent, FormButtonsComponent } from 'src/app/common-component';
 import { CalculadoraComponent } from '../calculadora/calculadora.component';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-demos',
@@ -16,10 +17,10 @@ import { CalculadoraComponent } from '../calculadora/calculadora.component';
   imports: [CommonModule, FormsModule, ElipsisPipe, CapitalizePipe, SizerComponent, CalculadoraComponent,
     CardComponent, NotificationComponent, ExecPipe, FormButtonsComponent],
   // providers: [ NotificationService ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DemosComponent {
-  private suscriptor?: Unsubscribable;
+  private suscriptor?: Subscription;
   private nombre: string = 'mundo'
   fecha = '2023-01-28'
   fontSize = 24
@@ -35,8 +36,33 @@ export class DemosComponent {
   visible = true
   estetica = { importante: true, error: false, urgente: true }
 
-  constructor(public vm: NotificationService, private ngZone: NgZone, private changeDetectorRef: ChangeDetectorRef, private log: LoggerService) {
+  constructor(public vm: NotificationService, private ngZone: NgZone, private changeDetectorRef: ChangeDetectorRef,
+    private log: LoggerService, private router: Router) {
     this.calcula = this.calcula.bind(this)
+    this.suscriptor = this.vm.Notificacion.subscribe(n => {
+      if (n.Type !== NotificationType.error) { return; }
+      window.alert(`Suscripcion: ${n.Message}`);
+      this.vm.remove(this.vm.Listado.length - 1);
+    });
+    const otro =
+    this.router.events.subscribe(ev => {
+      if(ev instanceof NavigationEnd) {
+        const info = this.router.getCurrentNavigation()?.extras.info
+        if(info) { this.nombre = (info as any).nombre;
+        }
+      }
+    });
+
+    // this.router.events.pipe(
+    //   filter((e) => e instanceof NavigationEnd),
+    //   map(() => this.router.getCurrentNavigation()?.extras.info)
+    // ).subscribe(info => {
+    //   if (!info) return
+    //   console.log(info);
+    //   this.nombre = (info as any).nombre;
+    // });
+    this.suscriptor.add(otro)
+
   }
 
   public get Nombre(): string { return this.nombre; }
@@ -94,11 +120,30 @@ export class DemosComponent {
 
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {
-    this.suscriptor = this.vm.Notificacion.subscribe(n => {
-      if (n.Type !== NotificationType.error) { return; }
-      window.alert(`Suscripcion: ${n.Message}`);
-      this.vm.remove(this.vm.Listado.length - 1);
-    });
+    // this.suscriptor = this.vm.Notificacion.subscribe(n => {
+    //   if (n.Type !== NotificationType.error) { return; }
+    //   window.alert(`Suscripcion: ${n.Message}`);
+    //   this.vm.remove(this.vm.Listado.length - 1);
+    // });
+    // const otro =
+    // this.router.events.subscribe(ev => {
+    //   if(ev instanceof NavigationEnd) {
+    //     const info = this.router.getCurrentNavigation()?.extras.info
+    //     if(info) {
+    //       this.resultado = (info as any).nombre;
+    //     }
+    //   }
+    // });
+
+    // // this.router.events.pipe(
+    // //   filter((e) => e instanceof NavigationEnd),
+    // //   map(() => this.router.getCurrentNavigation()?.extras.info)
+    // // ).subscribe(info => {
+    // //   if (!info) return
+    // //   console.log(info);
+    // //   this.nombre = (info as any).nombre;
+    // // });
+    // this.suscriptor.add(otro)
   }
   ngOnDestroy(): void {
     if (this.suscriptor) {
